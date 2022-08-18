@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  db:
+    container_name: msa-db
+    image: postgres:14.0-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=Password123
+      - APP_DB_USER=msa
+      - APP_DB_PASS=Password123
+      - APP_DB_NAME=msa
+    volumes:
+      - ./setup/db/database-data:/var/lib/postgresql/data/ #persist data
+      - ./setup/db:/docker-entrypoint-initdb.d/
+    ports:
+      - '5432:5432'
+volumes:
+  database-data:
